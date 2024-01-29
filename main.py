@@ -8,20 +8,22 @@ root.title("Simple Calculator by d1rannn")
 # functions
 def ac():
     try:
+        empty_text = ''
         entry_display.delete(0, tkinter.END)
     except Exception as e:
         print(e)
+
 
 def add_number(number):
     current_text = entry_display.get()
     entry_display.delete(0, tkinter.END)
     entry_display.insert(0, current_text + str(number))
+        
 
 
 # GUI
 entry_display = tkinter.Entry(root)
 entry_display.pack()
-
 
 frame_nums1 = tkinter.Frame(root)
 frame_nums1.pack()
@@ -86,7 +88,7 @@ buttonP.pack(side=tkinter.LEFT)
 frame_nums0 = tkinter.Frame(root)
 frame_nums0.pack()
 
-button0 = tkinter.Button(frame_nums0, height=1, width=6, text="0")
+button0 = tkinter.Button(frame_nums0, height=1, width=6, text="0", command=lambda: add_number(0))
 button0.pack(side=tkinter.LEFT)
 
 button_point = tkinter.Button(frame_nums0, height=1, width=1, text=",")

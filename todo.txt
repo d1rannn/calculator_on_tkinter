@@ -1,0 +1,4 @@
+ToDo:
+
+    1. Add functions to manipulate numbers
+    2. Configure display to do not editing numbers with keyboard and to do not entering text

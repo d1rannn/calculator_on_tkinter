@@ -1,101 +1,108 @@
 import tkinter
-import tkinter.messagebox
 
 # root
 root = tkinter.Tk()
 root.title("Simple Calculator by d1rannn")
 
 # functions
+def add_to_calculation(symbol):
+    global calculation
+    calculation += str(symbol)
+    text_result.delete(1.0, "end")
+    text_result.insert(1.0, calculation)
+
+def evaluate_calculation():
+    global calculation
+    try: 
+        calculation = str(eval(calculation))
+        text_result.delete(1.0, "end")
+        text_result.insert(1.0, calculation)
+    except Exception as e: 
+        ac()
+        text_result.insert(1.0, f"Error: {str(e)}")
+
 def ac():
+    global calculation
+    calculation = ""
+    text_result.delete(1.0, "end")
+
+def add_percentage():
+    global calculation
     try:
-        empty_text = ''
-        entry_display.delete(0, tkinter.END)
+        calculation = str(eval(calculation) / 100)
+        text_result.delete(1.0, "end")
+        text_result.insert(1.0, calculation)
     except Exception as e:
-        print(e)
+        ac()
+        text_result.insert(1.0, f"Error: {str(e)}")
 
-
-def add_number(number):
-    current_text = entry_display.get()
-    entry_display.delete(0, tkinter.END)
-    entry_display.insert(0, current_text + str(number))
-        
-
+def add_decimal_point():
+    global calculation
+    if "." not in calculation:
+        calculation += "."
+        text_result.delete(1.0, "end")
+        text_result.insert(1.0, calculation)
 
 # GUI
-entry_display = tkinter.Entry(root)
-entry_display.pack()
+text_result = tkinter.Text(root, height=1, width=11, font=("SF Pro", 24))
+text_result.grid(columnspan=5)
 
-frame_nums1 = tkinter.Frame(root)
-frame_nums1.pack()
+buttonAC = tkinter.Button(root, height=1, width=1, text="AC", command=ac)
+buttonAC.grid(row=2, column=1)
 
-buttonAC = tkinter.Button(frame_nums1, height=1, width=1, text="AC", command=ac())
-buttonAC.pack(side=tkinter.LEFT)
+buttonC = tkinter.Button(root, height=1, width=1, text="C")
+buttonC.grid(row=2, column=2)
 
-buttonPM = tkinter.Button(frame_nums1, height=1, width=1, text="+/-")
-buttonPM.pack(side=tkinter.LEFT)
+buttonPR = tkinter.Button(root, height=1, width=1, text="%", command=add_percentage)
+buttonPR.grid(row=2, column=3)
 
-buttonPR = tkinter.Button(frame_nums1, height=1, width=1, text="%")
-buttonPR.pack(side=tkinter.LEFT)
+buttonD = tkinter.Button(root, height=1, width=1, text="/", bg="orange", command=lambda: add_to_calculation("/"))
+buttonD.grid(row=2, column=4)
 
-buttonD = tkinter.Button(frame_nums1, height=1, width=1, text="/", bg="orange")
-buttonD.pack(side=tkinter.LEFT)
+button7 = tkinter.Button(root, height=1, width=1, text="7", command=lambda: add_to_calculation(7))
+button7.grid(row=3, column=1)
 
-frame_nums789 = tkinter.Frame(root)
-frame_nums789.pack()
+button8 = tkinter.Button(root, height=1, width=1, text="8", command=lambda: add_to_calculation(8))
+button8.grid(row=3, column=2)
 
-button7 = tkinter.Button(frame_nums789, height=1, width=1, text="7", command=lambda: add_number(7))
-button7.pack(side=tkinter.LEFT)
+button9 = tkinter.Button(root, height=1, width=1, text="9", command=lambda: add_to_calculation(9))
+button9.grid(row=3, column=3)
 
-button8 = tkinter.Button(frame_nums789, height=1, width=1, text="8", command=lambda: add_number(8))
-button8.pack(side=tkinter.LEFT)
+buttonM = tkinter.Button(root, height=1, width=1, text="*", bg="orange", command=lambda: add_to_calculation("*"))
+buttonM.grid(row=3, column=4)
 
-button9 = tkinter.Button(frame_nums789, height=1, width=1, text="9", command=lambda: add_number(9))
-button9.pack(side=tkinter.LEFT)
+button4 = tkinter.Button(root, height=1, width=1, text="4", command=lambda: add_to_calculation(4))
+button4.grid(row=4, column=1)
 
-buttonM = tkinter.Button(frame_nums789, height=1, width=1, text="*", bg="orange")
-buttonM.pack(side=tkinter.LEFT)
+button5 = tkinter.Button(root, height=1, width=1, text="5", command=lambda: add_to_calculation(5))
+button5.grid(row=4, column=2)
 
-frame_nums456 = tkinter.Frame(root)
-frame_nums456.pack()
+button6 = tkinter.Button(root, height=1, width=1, text="6", command=lambda: add_to_calculation(6))
+button6.grid(row=4, column=3)
 
-button4 = tkinter.Button(frame_nums456, height=1, width=1, text="4", command=lambda: add_number(4))
-button4.pack(side=tkinter.LEFT)
+buttonM = tkinter.Button(root, height=1, width=1, text="-", bg="orange", command=lambda: add_to_calculation("-"))
+buttonM.grid(row=4, column=4)
 
-button5 = tkinter.Button(frame_nums456, height=1, width=1, text="5", command=lambda: add_number(5))
-button5.pack(side=tkinter.LEFT)
+button1 = tkinter.Button(root, height=1, width=1, text="1", command=lambda: add_to_calculation(1))
+button1.grid(row=5, column=1)
 
-button6 = tkinter.Button(frame_nums456, height=1, width=1, text="6", command=lambda: add_number(6))
-button6.pack(side=tkinter.LEFT)
+button2 = tkinter.Button(root, height=1, width=1, text="2", command=lambda: add_to_calculation(2))
+button2.grid(row=5, column=2)
 
-buttonM = tkinter.Button(frame_nums456, height=1, width=1, text="-", bg="orange")
-buttonM.pack(side=tkinter.LEFT)
+button3 = tkinter.Button(root, height=1, width=1, text="3", command=lambda: add_to_calculation(3))
+button3.grid(row=5, column=3)
 
-frame_nums123 = tkinter.Frame(root)
-frame_nums123.pack()
+buttonP = tkinter.Button(root, height=1, width=1, text="+", bg="orange", command=lambda: add_to_calculation("+"))
+buttonP.grid(row=5, column=4)
 
-button1 = tkinter.Button(frame_nums123, height=1, width=1, text="1", command=lambda: add_number(1))
-button1.pack(side=tkinter.LEFT)
+button0 = tkinter.Button(root, height=1, width=6, text="0", command=lambda: add_to_calculation(0))
+button0.grid(row=6, column=1, columnspan=2)
 
-button2 = tkinter.Button(frame_nums123, height=1, width=1, text="2", command=lambda: add_number(2))
-button2.pack(side=tkinter.LEFT)
+button_point = tkinter.Button(root, height=1, width=1, text=",", command=add_decimal_point)
+button_point.grid(row=6, column=3)
 
-button3 = tkinter.Button(frame_nums123, height=1, width=1, text="3", command=lambda: add_number(3))
-button3.pack(side=tkinter.LEFT)
-
-buttonP = tkinter.Button(frame_nums123, height=1, width=1, text="+", bg="orange")
-buttonP.pack(side=tkinter.LEFT)
-
-frame_nums0 = tkinter.Frame(root)
-frame_nums0.pack()
-
-button0 = tkinter.Button(frame_nums0, height=1, width=6, text="0", command=lambda: add_number(0))
-button0.pack(side=tkinter.LEFT)
-
-button_point = tkinter.Button(frame_nums0, height=1, width=1, text=",")
-button_point.pack(side=tkinter.LEFT)
-
-buttonE = tkinter.Button(frame_nums0, height=1, width=1, text="=", bg="orange")
-buttonE.pack(side=tkinter.LEFT)
+buttonE = tkinter.Button(root, height=1, width=1, text="=", bg="orange", command=evaluate_calculation)
+buttonE.grid(row=6, column=4)
 
 # mainloop
 root.mainloop()
